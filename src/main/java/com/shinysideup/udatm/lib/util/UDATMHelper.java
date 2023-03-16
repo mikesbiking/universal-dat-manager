@@ -2,6 +2,7 @@ package com.shinysideup.udatm.lib.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -13,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.shinysideup.udatm.lib.NoDataFoundException;
+import com.shinysideup.udatm.lib.ui.UDATMTool;
 
 /**
  * This class is a utility class used primarily by UTC to get important
@@ -41,8 +42,8 @@ public class UDATMHelper {
 	/**
 	 * Create the shared ThreadPool which will run all Callables dispatched
 	 */
-	public static final ThreadPoolExecutor UDATM_Thread_Pool_Executor = new ThreadPoolExecutor(2, Integer.MAX_VALUE, 60L,
-			TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+	public static final ThreadPoolExecutor UDATM_Thread_Pool_Executor = new ThreadPoolExecutor(2, Integer.MAX_VALUE,
+			60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
 
 	/**
 	 * Create the shared Scheduled ThreadPool for running threads on a schedule
@@ -55,8 +56,8 @@ public class UDATMHelper {
 	 * Properties are loaded in the following order:
 	 * <ol>
 	 * <li>First load all System properties (i.e., "-D[property name]")
-	 * <li>Copy all properties from <b>"udatm.properties"</b>. This does not override
-	 * any property that is already set with the same name.<br>
+	 * <li>Copy all properties from <b>"udatm.properties"</b>. This does not
+	 * override any property that is already set with the same name.<br>
 	 * Allows overriding "udatm.properties" settings.
 	 * </ol>
 	 * <b>"udatm.properties"</b> is searched for in the following order:
@@ -75,13 +76,37 @@ public class UDATMHelper {
 			// already set.
 			// This allows overriding udatm.properties with command line options
 			try {
-				File dspropsfile = getUDATMConfig();
+				File dspropsfile = null;
+				try {
+					File dsProps = new File(System.getenv(UDATM_HOME_DIR_KEY), UDATM_CONFIG_NAME);
+					if (dsProps.exists() && dsProps.isFile()) {
+						dspropsfile = dsProps;
+					}
+				} catch (Exception e) {
+				}
+				try {
+					File dsProps = new File(System.getProperty("user.dir"), UDATM_CONFIG_NAME);
+					if (dsProps.exists() && dsProps.isFile()) {
+						dspropsfile = dsProps;
+					}
+				} catch (Exception e) {
+				}
 				logMsg = "UDATM is being configured using: " + dspropsfile.getAbsolutePath();
 				mergeProperties(PropertiesUtil.getProperties(dspropsfile.getAbsolutePath()), false);
 			} catch (Exception e) {
-				logMsg = "UDATM is being configured using the default configuration file that is packaged with it: "
-						+ UDATM_CONFIG_NAME;
-				mergeProperties(PropertiesUtil.getProperties(UDATM_CONFIG_NAME), false);
+				try {
+					InputStream in = UDATMTool.class.getClassLoader().getResourceAsStream(UDATM_CONFIG_NAME);
+					if (in != null) {
+						Properties props = new java.util.Properties();
+						props.load(in);
+						in.close();
+						mergeProperties(props, false);
+					}
+				} catch (Exception e2) {
+					logMsg = "UDATM is being configured using the default configuration file that is packaged with it: "
+							+ UDATM_CONFIG_NAME;
+					mergeProperties(PropertiesUtil.getProperties(UDATM_CONFIG_NAME), false);
+				}
 			}
 			// Check to see if we have a Log locations specified and set it.
 			String logLoc = getProperty(LOG_FILE_LOCATION_KEY);
@@ -101,29 +126,6 @@ public class UDATMHelper {
 			logger = LogManager.getLogger(UDATMHelper.class.getName());
 			logger.info(logMsg);
 		}
-	}
-
-	/**
-	 * Returns the UDATM bootstrap configuration file
-	 *
-	 * @throws NoDataFoundException
-	 */
-	public static File getUDATMConfig() throws NoDataFoundException {
-		try {
-			File dsProps = new File(System.getenv(UDATM_HOME_DIR_KEY), UDATM_CONFIG_NAME);
-			if (dsProps.exists() && dsProps.isFile()) {
-				return dsProps;
-			}
-		} catch (Exception e) {
-		}
-		try {
-			File dsProps = new File(System.getProperty("user.dir"), UDATM_CONFIG_NAME);
-			if (dsProps.exists() && dsProps.isFile()) {
-				return dsProps;
-			}
-		} catch (Exception e) {
-		}
-		throw new NoDataFoundException("Failed to find UDATM configuration file");
 	}
 
 	public static boolean refreshCache() {

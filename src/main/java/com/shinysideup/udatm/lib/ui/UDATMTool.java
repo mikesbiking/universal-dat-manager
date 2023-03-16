@@ -1,12 +1,15 @@
 package com.shinysideup.udatm.lib.ui;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import com.shinysideup.udatm.lib.io.FileCaptureIOProtocolDescriptor;
 import com.shinysideup.udatm.lib.io.HTTPIOProtocolDescriptor;
 import com.shinysideup.udatm.lib.io.IOProtocolDescriptor;
 import com.shinysideup.udatm.lib.pojo.DOTType;
 import com.shinysideup.udatm.lib.util.JsonUtil;
+import com.shinysideup.udatm.lib.util.UDATMHelper;
 
 public class UDATMTool {
 
@@ -35,6 +38,11 @@ public class UDATMTool {
 		json = JsonUtil.serialize(type);
 		System.out.println(json);
 		
+		
+		System.out.println(UDATMHelper.getProperties());
+
+
+
 		
 
 		

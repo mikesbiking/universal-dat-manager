@@ -1,202 +1,187 @@
-package com.shinysideup.udatm.lib;
+package com.shinysideup.udatm.lib.dao;
 
 import java.util.List;
 
-import com.shinysideup.udatm.lib.dao.DevicesAndThingsDAO;
+import com.shinysideup.udatm.lib.NoDataFoundException;
 import com.shinysideup.udatm.lib.pojo.DATDetails;
 import com.shinysideup.udatm.lib.pojo.DOTConfigurationContent;
 import com.shinysideup.udatm.lib.pojo.DOTContent;
 import com.shinysideup.udatm.lib.pojo.DOTDetails;
 import com.shinysideup.udatm.lib.pojo.DOTModelContent;
 import com.shinysideup.udatm.lib.pojo.DOTModelDetails;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionCommandDetails;
 import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionConfigurationContent;
 import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionContent;
 import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionDetails;
 import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionScriptContent;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionScriptDetails;
 
-/**
- * @author Mike Worley
- */
-public class DevicesAndThingsManager implements DevicesAndThings {
-
-	private DevicesAndThingsDAO datDAO;
-	private DeviceOrThingCollection datCollection;
-
-	public DevicesAndThingsManager(DevicesAndThingsDAO datDAO) {
-		this.datDAO = datDAO;
-		datCollection = new DeviceOrThingCollection(datDAO);
-	}
+public class DevicesAndThingsFilesystemDAO implements DevicesAndThingsDAO {
 
 	@Override
 	public DATDetails getDATManagerDetails() throws NoDataFoundException {
-		return this.datDAO.getDATManagerDetails();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public DATDetails updateDATManagerDetails(DATDetails details) throws NoDataFoundException {
-		return this.datDAO.getDATManagerDetails();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public List<DOTDetails> getAllDOTDetails() throws NoDataFoundException {
-		return this.datDAO.getAllDOTDetails();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public DOTDetails addDOT(DOTContent info) throws NoDataFoundException {
-		return this.datDAO.addDOT(info);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public DOTDetails updateDOT(Long dotId, DOTContent content) throws NoDataFoundException {
-		return this.datDAO.updateDOT(dotId, content);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public DOTDetails getDOTDetails(Long dotId) throws NoDataFoundException {
-		return this.datDAO.getDOTDetails(dotId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public DOTContent getDOTContent(Long dotId) throws NoDataFoundException {
-		return this.datDAO.getDOTContent(dotId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void removeDOT(Long dotId) throws NoDataFoundException {
-		this.datDAO.removeDOT(dotId);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void addDOTConfiguration(Long dotModelId, DOTConfigurationContent config) throws NoDataFoundException {
-		this.datDAO.addDOTConfiguration(dotModelId, config);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void updateConfiguration(DOTConfigurationContent config) throws NoDataFoundException {
-		this.datDAO.updateConfiguration(config);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public String getDOTConfiguration(Long configId) throws NoDataFoundException {
-		return this.datDAO.getDOTConfiguration(configId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void removeDOTConfiguration(Long configId) throws NoDataFoundException {
-		this.datDAO.removeDOTConfiguration(configId);
-	}
+		// TODO Auto-generated method stub
 
-	@Override
-	public Handle runDOTScript(Long dotId, DOTModelFirmwareVersionScriptDetails scriptDetails)
-			throws NoDataFoundException, DeviceOrThingException {
-		return this.datCollection.getDeviceOrThing(dotId).runDOTScript(scriptDetails);
-	}
-
-	@Override
-	public Handle runDOTCommand(Long dotId, DOTModelFirmwareVersionCommandDetails commandDetails)
-			throws NoDataFoundException, DeviceOrThingException {
-		return this.datCollection.getDeviceOrThing(dotId).runDOTCommand(commandDetails);
-	}
-
-	@Override
-	public Result getResult(Handle handle) throws NoDataFoundException, DeviceOrThingException {
-		return this.datCollection.getDeviceOrThing(handle.getDotId()).getResult(handle);
 	}
 
 	@Override
 	public void addDOTModel(DOTModelContent content) throws NoDataFoundException {
-		this.datDAO.addDOTModel(content);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void updateDOTModel(Long dotModelId, DOTModelContent content) throws NoDataFoundException {
-		this.datDAO.updateDOTModel(dotModelId, content);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void removeDOTModel(Long dotModelId) throws NoDataFoundException {
-		this.datDAO.removeDOTModel(dotModelId);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public List<DOTModelDetails> getAllDOTModelDetails() throws NoDataFoundException {
-		return this.datDAO.getAllDOTModelDetails();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void addDOTModelFirmwareVersion(Long dotModelId, DOTModelFirmwareVersionContent config)
 			throws NoDataFoundException {
-		this.datDAO.addDOTModelFirmwareVersion(dotModelId, config);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void removeDOTModelFirmwareVersion(Long dotModelFirmwareVersionId) throws NoDataFoundException {
-		this.datDAO.removeDOTModelFirmwareVersion(dotModelFirmwareVersionId);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public DOTModelFirmwareVersionDetails getDOTModelFirmwareVersionDetails(Long dotModelFirmwareVersionId)
 			throws NoDataFoundException {
-		return this.datDAO.getDOTModelFirmwareVersionDetails(dotModelFirmwareVersionId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void addDOTModelFirmwareVersionConfiguration(Long dotModelId,
 			DOTModelFirmwareVersionConfigurationContent config) throws NoDataFoundException {
-		this.datDAO.addDOTModelFirmwareVersionConfiguration(dotModelId, config);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void updateDOTModelFirmwareVersionConfiguration(DOTModelFirmwareVersionConfigurationContent config)
 			throws NoDataFoundException {
-		this.datDAO.updateDOTModelFirmwareVersionConfiguration(config);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public String getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException {
-		return this.datDAO.getDOTModelFirmwareVersionConfiguration(configId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void removeDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException {
-		this.datDAO.removeDOTModelFirmwareVersionConfiguration(configId);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void addDOTModelSFirmwareVersioncript(Long dotModelId, DOTModelFirmwareVersionScriptContent script)
 			throws NoDataFoundException {
-		this.datDAO.addDOTModelSFirmwareVersioncript(dotModelId, script);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void updateDOTModelSFirmwareVersioncript(DOTModelFirmwareVersionScriptContent script)
 			throws NoDataFoundException {
-		this.datDAO.updateDOTModelSFirmwareVersioncript(script);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public String getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
-		return this.datDAO.getDOTModelFirmwareVersionScript(scriptId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void removeDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
-		this.datDAO.removeDOTModelFirmwareVersionScript(scriptId);
-	}
+		// TODO Auto-generated method stub
 
-	@Override
-	public void disconnectAllDOTConnections() {
-		this.datCollection.disconnectDOTConnections();
-	}
-
-	@Override
-	public void shutdown() {
-		this.datCollection.shutdown();
 	}
 
 }

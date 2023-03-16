@@ -1,24 +1,20 @@
-package com.shinysideup.udatm.lib;
+package com.shinysideup.udatm.lib.dao;
 
 import java.util.List;
 
-import com.shinysideup.udatm.lib.pojo.DOTContent;
-import com.shinysideup.udatm.lib.pojo.DOTModelDetails;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionCommandDetails;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionConfigurationContent;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionContent;
-import com.shinysideup.udatm.lib.pojo.DOTDetails;
-import com.shinysideup.udatm.lib.pojo.DOTModelContent;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionDetails;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionScriptContent;
-import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionScriptDetails;
+import com.shinysideup.udatm.lib.NoDataFoundException;
 import com.shinysideup.udatm.lib.pojo.DATDetails;
 import com.shinysideup.udatm.lib.pojo.DOTConfigurationContent;
+import com.shinysideup.udatm.lib.pojo.DOTContent;
+import com.shinysideup.udatm.lib.pojo.DOTDetails;
+import com.shinysideup.udatm.lib.pojo.DOTModelContent;
+import com.shinysideup.udatm.lib.pojo.DOTModelDetails;
+import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionConfigurationContent;
+import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionContent;
+import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionDetails;
+import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionScriptContent;
 
-/**
- * @author Mike Worley
- */
-public interface DevicesAndThings {
+public interface DevicesAndThingsDAO {
 
 	public DATDetails getDATManagerDetails() throws NoDataFoundException;
 
@@ -43,15 +39,7 @@ public interface DevicesAndThings {
 	public String getDOTConfiguration(Long configId) throws NoDataFoundException;
 
 	public void removeDOTConfiguration(Long configId) throws NoDataFoundException;
-
-	public Handle runDOTScript(Long dotId, DOTModelFirmwareVersionScriptDetails scriptDetails)
-			throws NoDataFoundException, DeviceOrThingException;
-
-	public Handle runDOTCommand(Long dotId, DOTModelFirmwareVersionCommandDetails commandDetails)
-			throws NoDataFoundException, DeviceOrThingException;
-
-	public Result getResult(Handle handle) throws NoDataFoundException, DeviceOrThingException;
-
+	
 	public void addDOTModel(DOTModelContent content) throws NoDataFoundException;
 
 	public void updateDOTModel(Long dotModelId, DOTModelContent content) throws NoDataFoundException;
@@ -87,17 +75,4 @@ public interface DevicesAndThings {
 	public String getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException;
 
 	public void removeDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException;
-
-	/**
-	 * Resets all the DOT connections.
-	 * 
-	 * @throws DeviceOrThingException
-	 */
-	public void disconnectAllDOTConnections();
-
-	/**
-	 * Shuts down this application/library
-	 */
-	public void shutdown();
-
 }
