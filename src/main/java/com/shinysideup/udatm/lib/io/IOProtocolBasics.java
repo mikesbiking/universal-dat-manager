@@ -3,20 +3,17 @@ package com.shinysideup.udatm.lib.io;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 
-import com.shinysideup.udatm.lib.util.UDATMHelper;
-
 /**
  * @author Mike Worley
  */
 public abstract class IOProtocolBasics implements IOProtocol {
 
-
 	public abstract void write(byte[] bytes) throws IOException;
-	
+
 	public abstract byte[] read() throws IOException;
-	
+
 	public void write(String value) throws IOException {
-		this.write(value.getBytes(UDATMHelper.BYTE_ENCODING));
+		this.write(value.getBytes(IOProtocol.BYTE_ENCODING));
 	}
 
 	public String readUntil(String regx) throws IOException {
@@ -24,7 +21,7 @@ public abstract class IOProtocolBasics implements IOProtocol {
 		int tryCounter = 0;
 		String result = "";
 		try {
-			result = new String(this.read(), UDATMHelper.BYTE_ENCODING);
+			result = new String(this.read(), IOProtocol.BYTE_ENCODING);
 		} catch (InterruptedIOException iioe) {
 			// This is OK
 			// Indicates the read call did not get any bytes
@@ -49,7 +46,7 @@ public abstract class IOProtocolBasics implements IOProtocol {
 				} else {
 					tryCounter = 0;
 				}
-				result += new String(bytesRead, UDATMHelper.BYTE_ENCODING);
+				result += new String(bytesRead, IOProtocol.BYTE_ENCODING);
 			} catch (InterruptedIOException iioe) {
 				tryCounter++;
 				try {

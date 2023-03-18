@@ -3,15 +3,16 @@ package com.shinysideup.udatm.lib.io;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.net.telnet.TelnetClient;
-
-import com.shinysideup.udatm.lib.util.UDATMHelper;
 
 /**
  * @author Mike Worley
  */
 public class TelnetIOProtocol extends IOProtocolBasics {
 
+	private static final Log logger = LogFactory.getLog(TelnetIOProtocol.class);
 	/**
 	 * This is the pattern to wait for after login to confirm success. This can be
 	 * overridden.
@@ -95,7 +96,7 @@ public class TelnetIOProtocol extends IOProtocolBasics {
 					this.write(this.iopd.getUserPassword() + "\r\n");
 				}
 				debugResult += this.readUntil(this.loginResponsePattern);
-				UDATMHelper.logger.debug("Telnet IOP login result:\n" + debugResult);
+				logger.debug("Telnet IOP login result:\n" + debugResult);
 				return true;
 			} catch (Exception e) {
 				this.reset();

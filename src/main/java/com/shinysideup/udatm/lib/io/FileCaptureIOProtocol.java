@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 
-import com.shinysideup.udatm.lib.util.UDATMHelper;
-
 /**
  * @author Mike Worley
  */
@@ -37,7 +35,7 @@ public class FileCaptureIOProtocol extends IOProtocolBasics {
 
 	public byte[] read() throws IOException {
 		this.initialize();
-		return "".getBytes(UDATMHelper.BYTE_ENCODING);
+		return "".getBytes(IOProtocol.BYTE_ENCODING);
 	}
 
 	public String readUntil(String pattern) throws IOException {

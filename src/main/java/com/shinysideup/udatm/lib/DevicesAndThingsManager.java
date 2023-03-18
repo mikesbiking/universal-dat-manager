@@ -147,14 +147,12 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	public void addDOTModelFirmwareVersionConfiguration(Long dotModelId,
 			DOTModelFirmwareVersionConfigurationContent config) throws NoDataFoundException {
 		this.datDAO.addDOTModelFirmwareVersionConfiguration(dotModelId, config);
-
 	}
 
 	@Override
 	public void updateDOTModelFirmwareVersionConfiguration(DOTModelFirmwareVersionConfigurationContent config)
 			throws NoDataFoundException {
 		this.datDAO.updateDOTModelFirmwareVersionConfiguration(config);
-
 	}
 
 	@Override

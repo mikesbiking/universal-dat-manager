@@ -33,7 +33,7 @@ public class DeviceOrThingCollection {
 		}
 	}
 
-	public void updateDeviceOrThing(Long dotId) {
+	public void updateDeviceOrThing(Long dotId) throws NoDataFoundException, DeviceOrThingException {
 		synchronized (dots) {
 			if (!shutdown) {
 				if (dots.containsKey(dotId)) {
