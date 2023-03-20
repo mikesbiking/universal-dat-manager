@@ -21,7 +21,7 @@ public class DeviceOrThingCollection {
 		this.datDAO = datDAO;
 	}
 
-	public DeviceOrThing getDeviceOrThing(Long dotId) throws NoDataFoundException {
+	public DeviceOrThing getDeviceOrThing(Long dotId) throws NoDataFoundException, DeviceOrThingException {
 		synchronized (dots) {
 			if (shutdown)
 				throw new NoDataFoundException("Shutting down");

@@ -1,34 +1,30 @@
 package com.shinysideup.udatm.lib;
 
-import java.io.Serializable;
-
 /**
  * @author Mike Worley
  */
-public class DeviceOrThingException extends GeneralException implements Serializable {
+public class DeviceOrThingException extends GeneralException {
 	private static final long serialVersionUID = 1L;
-
-	private long bytesTransferred;
 
 	public DeviceOrThingException() {
 		super();
 	}
 
-	public DeviceOrThingException(String errorMsg) {
-		this(1, errorMsg, 0);
+	public DeviceOrThingException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
-	public DeviceOrThingException(int errorCode, String errorMsg, long bytesTransferred) {
-		super(errorCode, errorMsg);
-		this.bytesTransferred = bytesTransferred;
+	public DeviceOrThingException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
-	public long getBytesTransferred() {
-		return bytesTransferred;
+	public DeviceOrThingException(String message) {
+		super(message);
 	}
 
-	public void setBytesTransferred(long bytesTransferred) {
-		this.bytesTransferred = bytesTransferred;
+	public DeviceOrThingException(Throwable cause) {
+		super(cause);
 	}
 
 }

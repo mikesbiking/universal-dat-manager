@@ -7,9 +7,9 @@ public class Result {
 
 	private boolean complete;
 
-	private String currentResult;
+	private String result;
 
-	private byte[] currentBytes;
+	private String lastErrorMessage;
 
 	public boolean isComplete() {
 		return complete;
@@ -19,20 +19,28 @@ public class Result {
 		this.complete = complete;
 	}
 
-	public String getCurrentResult() {
-		return currentResult;
+	public String getResult() {
+		return result;
 	}
 
-	public void setCurrentResult(String currentResult) {
-		this.currentResult = currentResult;
+	public void setResult(String result) {
+		if (result == null) {
+			this.result = null;
+		} else {
+			if (this.result == null) {
+				this.result = result;
+			} else {
+				this.result = this.result.concat(result);
+			}
+		}
 	}
 
-	public byte[] getCurrentBytes() {
-		return currentBytes;
+	public String getLastErrorMessage() {
+		return lastErrorMessage;
 	}
 
-	public void setCurrentBytes(byte[] currentBytes) {
-		this.currentBytes = currentBytes;
+	public void setLastErrorMessage(String lastErrorMessage) {
+		this.lastErrorMessage = lastErrorMessage;
 	}
 
 }

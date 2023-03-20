@@ -1,22 +1,31 @@
 package com.shinysideup.udatm.lib;
 
-import java.io.Serializable;
-
 /**
  * @author Mike Worley
  */
-public class NoDataFoundException extends GeneralException implements Serializable {
+public class NoDataFoundException extends GeneralException {
+
 	private static final long serialVersionUID = 1260692884910L;
 
 	public NoDataFoundException() {
 		super();
 	}
 
-	public NoDataFoundException(String errorMsg) {
-		this(1, errorMsg);
+	public NoDataFoundException(String message, Throwable cause, boolean enableSuppression,
+			boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
-	public NoDataFoundException(int errorCode, String errorMsg) {
-		super(errorCode, errorMsg);
+	public NoDataFoundException(String message, Throwable cause) {
+		super(message, cause);
 	}
+
+	public NoDataFoundException(String message) {
+		super(message);
+	}
+
+	public NoDataFoundException(Throwable cause) {
+		super(cause);
+	}
+
 }

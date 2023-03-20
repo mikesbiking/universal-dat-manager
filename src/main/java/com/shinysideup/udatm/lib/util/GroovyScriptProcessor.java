@@ -1,32 +1,86 @@
 package com.shinysideup.udatm.lib.util;
 
+import java.util.Hashtable;
 import java.util.Map;
 
 import com.shinysideup.udatm.lib.GeneralException;
+import com.shinysideup.udatm.lib.NoDataFoundException;
+import com.shinysideup.udatm.lib.Result;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
-public class GroovyScriptProcessor {
+/**
+ * @author Mike Worley
+ */
+public class GroovyScriptProcessor implements ScriptProcessor {
 
-	public static Object runGroovyScript(String scriptContent, Map<String, Object> objects) throws GeneralException {
+	private final String script;
+
+	private final Map<String, Object> parameters;
+
+	private final Result result;
+
+	private String errorMessage;
+
+	public GroovyScriptProcessor(String script, Map<String, Object> parameters) throws NoDataFoundException {
+		if (script == null)
+			throw new NoDataFoundException("Script can't be null");
+		this.script = script;
+		if (parameters == null) {
+			this.parameters = new Hashtable<>();
+		} else {
+			this.parameters = parameters;
+		}
+		this.result = new Result();
+		this.parameters.put("script_result", this.result);
+	}
+
+	public void run() {
 		try {
-			Binding binding;
+			Object scriptResult = runGroovyScript(script, parameters);
+			if (scriptResult != null) {
+				this.result.setResult(scriptResult.toString());
+			}
+		} catch (GeneralException e) {
+			this.errorMessage = "Script terminated : " + e.getLocalizedMessage();
+		} finally {
+			this.result.setComplete(true);
+		}
+	}
+
+	public String getLastErrorMessage() {
+		try {
+			return this.errorMessage;
+		} finally {
+			this.errorMessage = null;
+		}
+	}
+
+	public Result getCurrentResult() {
+		Result result = new Result();
+		result.setComplete(this.result.isComplete());
+		result.setResult(this.result.getResult());
+		this.result.setComplete(false);
+		this.result.setResult(null);
+		return result;
+	}
+
+	public static Object runGroovyScript(String scriptContent, Map<String, Object> parameters) throws GeneralException {
+		try {
 			GroovyShell shell;
-			if (objects != null && objects.size() > 0) {
-				binding = new Binding();
-				shell = new GroovyShell(binding);
-				for (String key : objects.keySet()) {
-					binding.setVariable(key, objects.get(key));
+			if (parameters != null && parameters.size() > 0) {
+				Binding binding = new Binding();
+				for (String key : parameters.keySet()) {
+					binding.setVariable(key, parameters.get(key));
 				}
+				shell = new GroovyShell(binding);
 			} else {
 				shell = new GroovyShell();
 			}
 			return shell.evaluate(scriptContent);
 		} catch (Exception e) {
-			GeneralException ge = new GeneralException(e.getLocalizedMessage());
-			ge.setStackTrace(e.getStackTrace());
-			throw ge;
+			throw new GeneralException(e);
 		}
 	}
 

@@ -17,6 +17,8 @@ public class DOTModelFirmwareVersionScriptDetails {
 
 	private Long maxCompletionTime;
 
+	private ScriptProcessorType scriptProcessorType = ScriptProcessorType.Groovy;
+
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +57,18 @@ public class DOTModelFirmwareVersionScriptDetails {
 
 	public void setResultAsString(boolean resultAsString) {
 		this.resultAsString = resultAsString;
+	}
+
+	public static enum ScriptProcessorType {
+		Groovy
+	}
+
+	public ScriptProcessorType getScriptProcessorType() {
+		return scriptProcessorType;
+	}
+
+	public void setScriptProcessorType(ScriptProcessorType scriptProcessorType) {
+		this.scriptProcessorType = scriptProcessorType;
 	}
 
 }

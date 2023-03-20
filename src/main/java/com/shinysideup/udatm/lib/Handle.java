@@ -7,7 +7,7 @@ public class Handle {
 
 	private Long dotId;
 
-	private Long handleId;
+	private String handleUUID;
 
 	public Long getDotId() {
 		return dotId;
@@ -17,12 +17,12 @@ public class Handle {
 		this.dotId = dotId;
 	}
 
-	public Long getHandleId() {
-		return handleId;
+	public String getHandleUUID() {
+		return handleUUID;
 	}
 
-	public void setHandleId(Long handleId) {
-		this.handleId = handleId;
+	public void setHandleUUID(String handleUUID) {
+		this.handleUUID = handleUUID;
 	}
 
 }
