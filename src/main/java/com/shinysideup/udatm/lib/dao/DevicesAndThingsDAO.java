@@ -36,10 +36,10 @@ public interface DevicesAndThingsDAO {
 
 	public void updateConfiguration(DOTConfigurationContent config) throws NoDataFoundException;
 
-	public String getDOTConfiguration(Long configId) throws NoDataFoundException;
+	public DOTConfigurationContent getDOTConfiguration(Long configId) throws NoDataFoundException;
 
 	public void removeDOTConfiguration(Long configId) throws NoDataFoundException;
-	
+
 	public void addDOTModel(DOTModelContent content) throws NoDataFoundException;
 
 	public void updateDOTModel(Long dotModelId, DOTModelContent content) throws NoDataFoundException;
@@ -62,7 +62,8 @@ public interface DevicesAndThingsDAO {
 	public void updateDOTModelFirmwareVersionConfiguration(DOTModelFirmwareVersionConfigurationContent config)
 			throws NoDataFoundException;
 
-	public String getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException;
+	public DOTModelFirmwareVersionConfigurationContent getDOTModelFirmwareVersionConfiguration(Long configId)
+			throws NoDataFoundException;
 
 	public void removeDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException;
 
@@ -72,7 +73,8 @@ public interface DevicesAndThingsDAO {
 	public void updateDOTModelSFirmwareVersioncript(DOTModelFirmwareVersionScriptContent script)
 			throws NoDataFoundException;
 
-	public String getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException;
+	public DOTModelFirmwareVersionScriptContent getDOTModelFirmwareVersionScript(Long scriptId)
+			throws NoDataFoundException;
 
 	public void removeDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException;
 }

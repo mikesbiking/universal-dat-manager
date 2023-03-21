@@ -40,14 +40,14 @@ public interface DevicesAndThings {
 
 	public void updateConfiguration(DOTConfigurationContent config) throws NoDataFoundException;
 
-	public String getDOTConfiguration(Long configId) throws NoDataFoundException;
+	public DOTConfigurationContent getDOTConfiguration(Long configId) throws NoDataFoundException;
 
 	public void removeDOTConfiguration(Long configId) throws NoDataFoundException;
 
 	public Handle runDOTScript(Long dotId, DOTModelFirmwareVersionScriptDetails scriptDetails)
 			throws NoDataFoundException, DeviceOrThingException;
 
-	public Handle runDOTCommand(Long dotId, DOTModelFirmwareVersionCommandDetails commandDetails)
+	public String runDOTCommand(Long dotId, DOTModelFirmwareVersionCommandDetails commandDetails)
 			throws NoDataFoundException, DeviceOrThingException;
 
 	public Result getResult(Handle handle) throws NoDataFoundException, DeviceOrThingException;
@@ -74,7 +74,8 @@ public interface DevicesAndThings {
 	public void updateDOTModelFirmwareVersionConfiguration(DOTModelFirmwareVersionConfigurationContent config)
 			throws NoDataFoundException;
 
-	public String getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException;
+	public DOTModelFirmwareVersionConfigurationContent getDOTModelFirmwareVersionConfiguration(Long configId)
+			throws NoDataFoundException;
 
 	public void removeDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException;
 
@@ -84,16 +85,10 @@ public interface DevicesAndThings {
 	public void updateDOTModelSFirmwareVersioncript(DOTModelFirmwareVersionScriptContent script)
 			throws NoDataFoundException;
 
-	public String getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException;
+	public DOTModelFirmwareVersionScriptContent getDOTModelFirmwareVersionScript(Long scriptId)
+			throws NoDataFoundException;
 
 	public void removeDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException;
-
-	/**
-	 * Resets all the DOT connections.
-	 * 
-	 * @throws DeviceOrThingException
-	 */
-	public void disconnectAllDOTConnections();
 
 	/**
 	 * Shuts down this application/library

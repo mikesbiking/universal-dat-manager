@@ -33,31 +33,11 @@ public class DeviceOrThingCollection {
 		}
 	}
 
-	public void updateDeviceOrThing(Long dotId) throws NoDataFoundException, DeviceOrThingException {
-		synchronized (dots) {
-			if (!shutdown) {
-				if (dots.containsKey(dotId)) {
-					dots.get(dotId).update();
-				}
-			}
-		}
-	}
-
 	public void removeDeviceOrThing(Long dotId) {
 		synchronized (dots) {
 			if (!shutdown) {
 				if (dots.containsKey(dotId)) {
-					dots.remove(dotId).disconnectConnections();
-				}
-			}
-		}
-	}
-
-	public void disconnectDOTConnections() {
-		synchronized (dots) {
-			if (!shutdown) {
-				for (Long key : dots.keySet()) {
-					dots.get(key).disconnectConnections();
+					dots.remove(dotId).shutdown();
 				}
 			}
 		}
@@ -66,11 +46,10 @@ public class DeviceOrThingCollection {
 	public void shutdown() {
 		synchronized (dots) {
 			if (!shutdown) {
-				for (Long key : dots.keySet()) {
-					dots.get(key).shutdown();
-				}
-				dots.clear();
 				shutdown = true;
+				for (Long dotId : dots.keySet()) {
+					removeDeviceOrThing(dotId);
+				}
 			}
 		}
 	}

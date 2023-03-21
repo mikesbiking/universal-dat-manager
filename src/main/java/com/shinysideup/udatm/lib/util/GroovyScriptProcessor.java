@@ -66,6 +66,11 @@ public class GroovyScriptProcessor implements ScriptProcessor {
 		return result;
 	}
 
+	@Override
+	public Map<String, Object> getParameters() {
+		return this.getParameters();
+	}
+
 	public static Object runGroovyScript(String scriptContent, Map<String, Object> parameters) throws GeneralException {
 		try {
 			GroovyShell shell;

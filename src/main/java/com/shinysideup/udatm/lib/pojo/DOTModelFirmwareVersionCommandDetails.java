@@ -13,11 +13,7 @@ public class DOTModelFirmwareVersionCommandDetails {
 
 	private List<Parameter> parameters;
 
-	private String commandScriptName;
-
-	private boolean resultAsString = true;
-
-	private Long maxCompletionTime;
+	private Long maxCompletionTime = 10000l;
 
 	public Long getId() {
 		return id;
@@ -41,22 +37,6 @@ public class DOTModelFirmwareVersionCommandDetails {
 
 	public void setParameters(List<Parameter> parameters) {
 		this.parameters = parameters;
-	}
-
-	public String getCommandScriptName() {
-		return commandScriptName;
-	}
-
-	public void setCommandScriptName(String commandScriptName) {
-		this.commandScriptName = commandScriptName;
-	}
-
-	public boolean isResultAsString() {
-		return resultAsString;
-	}
-
-	public void setResultAsString(boolean resultAsString) {
-		this.resultAsString = resultAsString;
 	}
 
 	public Long getMaxCompletionTime() {

@@ -77,7 +77,7 @@ public class DevicesAndThingsFilesystemDAO implements DevicesAndThingsDAO {
 	}
 
 	@Override
-	public String getDOTConfiguration(Long configId) throws NoDataFoundException {
+	public DOTConfigurationContent getDOTConfiguration(Long configId) throws NoDataFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -147,7 +147,7 @@ public class DevicesAndThingsFilesystemDAO implements DevicesAndThingsDAO {
 	}
 
 	@Override
-	public String getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException {
+	public DOTModelFirmwareVersionConfigurationContent getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -173,7 +173,7 @@ public class DevicesAndThingsFilesystemDAO implements DevicesAndThingsDAO {
 	}
 
 	@Override
-	public String getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
+	public DOTModelFirmwareVersionScriptContent getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

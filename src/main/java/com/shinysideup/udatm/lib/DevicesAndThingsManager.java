@@ -67,6 +67,7 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	@Override
 	public void removeDOT(Long dotId) throws NoDataFoundException {
 		this.datDAO.removeDOT(dotId);
+		this.datCollection.removeDeviceOrThing(dotId);
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	}
 
 	@Override
-	public String getDOTConfiguration(Long configId) throws NoDataFoundException {
+	public DOTConfigurationContent getDOTConfiguration(Long configId) throws NoDataFoundException {
 		return this.datDAO.getDOTConfiguration(configId);
 	}
 
@@ -96,7 +97,7 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	}
 
 	@Override
-	public Handle runDOTCommand(Long dotId, DOTModelFirmwareVersionCommandDetails commandDetails)
+	public String runDOTCommand(Long dotId, DOTModelFirmwareVersionCommandDetails commandDetails)
 			throws NoDataFoundException, DeviceOrThingException {
 		return this.datCollection.getDeviceOrThing(dotId).runDOTCommand(commandDetails);
 	}
@@ -156,7 +157,7 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	}
 
 	@Override
-	public String getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException {
+	public DOTModelFirmwareVersionConfigurationContent getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException {
 		return this.datDAO.getDOTModelFirmwareVersionConfiguration(configId);
 	}
 
@@ -178,18 +179,13 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	}
 
 	@Override
-	public String getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
+	public DOTModelFirmwareVersionScriptContent getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
 		return this.datDAO.getDOTModelFirmwareVersionScript(scriptId);
 	}
 
 	@Override
 	public void removeDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
 		this.datDAO.removeDOTModelFirmwareVersionScript(scriptId);
-	}
-
-	@Override
-	public void disconnectAllDOTConnections() {
-		this.datCollection.disconnectDOTConnections();
 	}
 
 	@Override
