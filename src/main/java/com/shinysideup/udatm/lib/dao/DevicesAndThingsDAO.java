@@ -14,6 +14,9 @@ import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionContent;
 import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionDetails;
 import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionScriptContent;
 
+/**
+ * @author Mike Worley
+ */
 public interface DevicesAndThingsDAO {
 
 	public DATDetails getDATManagerDetails() throws NoDataFoundException;

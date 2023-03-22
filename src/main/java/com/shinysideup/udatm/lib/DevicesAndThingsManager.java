@@ -157,7 +157,8 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	}
 
 	@Override
-	public DOTModelFirmwareVersionConfigurationContent getDOTModelFirmwareVersionConfiguration(Long configId) throws NoDataFoundException {
+	public DOTModelFirmwareVersionConfigurationContent getDOTModelFirmwareVersionConfiguration(Long configId)
+			throws NoDataFoundException {
 		return this.datDAO.getDOTModelFirmwareVersionConfiguration(configId);
 	}
 
@@ -179,7 +180,8 @@ public class DevicesAndThingsManager implements DevicesAndThings {
 	}
 
 	@Override
-	public DOTModelFirmwareVersionScriptContent getDOTModelFirmwareVersionScript(Long scriptId) throws NoDataFoundException {
+	public DOTModelFirmwareVersionScriptContent getDOTModelFirmwareVersionScript(Long scriptId)
+			throws NoDataFoundException {
 		return this.datDAO.getDOTModelFirmwareVersionScript(scriptId);
 	}
 
