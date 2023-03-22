@@ -9,6 +9,8 @@ import com.shinysideup.udatm.lib.Result;
  */
 public interface ScriptProcessor extends Runnable {
 
+	public static final String SCRIPT_RESULT_KEY = "scriptResult";
+
 	public String getLastErrorMessage();
 
 	public Result getCurrentResult();

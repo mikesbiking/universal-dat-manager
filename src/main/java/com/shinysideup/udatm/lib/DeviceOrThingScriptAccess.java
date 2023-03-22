@@ -13,6 +13,10 @@ import com.shinysideup.udatm.lib.pojo.DOTModelFirmwareVersionScriptDetails.Scrip
 import com.shinysideup.udatm.lib.util.GroovyScriptProcessor;
 
 /**
+ * An instance of this class is available to a running script. It provides clean
+ * access for the script to run command(s) and other script(s).<br>
+ * All scripts and commands will be executed in the same thread as the parent.
+ *
  * @author Mike Worley
  */
 public class DeviceOrThingScriptAccess {
@@ -32,7 +36,7 @@ public class DeviceOrThingScriptAccess {
 	public String runCommand(String commandName, Map<String, Object> parameters)
 			throws NoDataFoundException, DeviceOrThingException {
 		if (parameters == null)
-			parameters = new Hashtable<String, Object>();
+			parameters = new Hashtable<>();
 		parameters.put(COMMAND_NAME_KEY, commandName);
 		return this.runScript(COMMAND_SCRIPT_NAME, parameters);
 	}
@@ -40,7 +44,7 @@ public class DeviceOrThingScriptAccess {
 	public String runScript(String scriptName, Map<String, Object> parameters)
 			throws NoDataFoundException, DeviceOrThingException {
 		if (parameters == null)
-			parameters = new Hashtable<String, Object>();
+			parameters = new Hashtable<>();
 		parameters.put(SCRIPT_ACCESS_NAME_KEY, this);
 		DOTModelFirmwareVersionScriptContent scriptContent = this.getScript(scriptName);
 		if (scriptContent.getDetails().getScriptProcessorType().equals(ScriptProcessorType.Groovy)) {

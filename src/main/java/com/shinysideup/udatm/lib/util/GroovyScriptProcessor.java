@@ -33,7 +33,7 @@ public class GroovyScriptProcessor implements ScriptProcessor {
 			this.parameters = parameters;
 		}
 		this.result = new Result();
-		this.parameters.put("script_result", this.result);
+		this.parameters.put(ScriptProcessor.SCRIPT_RESULT_KEY, this.result);
 	}
 
 	public void run() {

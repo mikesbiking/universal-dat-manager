@@ -31,6 +31,8 @@ public class DeviceOrThing {
 	private static final Log logger = LogFactory.getLog(DeviceOrThing.class);
 	private final DeviceOrThingDAO datDAO;
 	private final Long dotId;
+	// ?? These only get cleared when a getResult show it's complete. Could have
+	// issues if getResult is never called. Might need a clean up action thread??
 	private final Map<String, ScriptProcessor> scriptProcessors = new Hashtable<>();
 	private final ExecutorService executor = Executors.newFixedThreadPool(10);
 
@@ -55,6 +57,8 @@ public class DeviceOrThing {
 				params.put(param.getName(), param.getValue());
 			}
 		}
+		DeviceOrThingScriptAccess access = new DeviceOrThingScriptAccess(this.datDAO, getIOProtocols());
+		params.put(DeviceOrThingScriptAccess.SCRIPT_ACCESS_NAME_KEY, access);
 		ScriptProcessor scriptProcessor;
 		if (scriptDetails.getScriptProcessorType().equals(ScriptProcessorType.Groovy)) {
 			scriptProcessor = new GroovyScriptProcessor(script, params);
@@ -90,15 +94,15 @@ public class DeviceOrThing {
 		Result result = scriptProcessor.getCurrentResult();
 		if (result.isComplete()) {
 			this.scriptProcessors.remove(handle.getHandleUUID());
-			Object scriptAccess = scriptProcessor.getParameters().get(DeviceOrThingScriptAccess.SCRIPT_ACCESS_NAME_KEY);
-			if (scriptAccess != null && scriptAccess instanceof DeviceOrThingScriptAccess) {
-				this.resetIOPs(((DeviceOrThingScriptAccess) scriptAccess).getIOProtocols());
-			}
+			resetIOProtocols(scriptProcessor);
 		}
 		return result;
 	}
 
 	public void shutdown() {
+		for (String key : this.scriptProcessors.keySet()) {
+			this.resetIOProtocols(this.scriptProcessors.remove(key));
+		}
 		this.executor.shutdown();
 	}
 
@@ -123,6 +127,19 @@ public class DeviceOrThing {
 			return (IOProtocol) constructor.newInstance(params);
 		} catch (Exception e) {
 			throw new DeviceOrThingException(e);
+		}
+	}
+
+	private void resetIOProtocols(ScriptProcessor scriptProcessor) {
+		if (scriptProcessor == null)
+			return;
+		Map<String, Object> parameters = scriptProcessor.getParameters();
+		if (parameters == null)
+			return;
+		Object scriptAccessObj = parameters.get(DeviceOrThingScriptAccess.SCRIPT_ACCESS_NAME_KEY);
+		if (scriptAccessObj != null && scriptAccessObj instanceof DeviceOrThingScriptAccess) {
+			DeviceOrThingScriptAccess scriptAccess = ((DeviceOrThingScriptAccess) scriptAccessObj);
+			this.resetIOPs(scriptAccess.getIOProtocols());
 		}
 	}
 
