@@ -32,6 +32,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0-rc3'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.0-rc3'
     implementation 'org.codehaus.groovy:groovy:3.0.16'
+	implementation 'org.openjdk.nashorn:nashorn-core:15.4'
+    
 }
 
 tasks.named('test') {
